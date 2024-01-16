@@ -25,7 +25,11 @@ export const registerUser = async (req, res) => {
     });
     delete result?.password;
     const token = jwt.sign({ userId: result.id }, process.env.JWT_SECRET);
-    res.cookie("bigCookie", { token });
+    res.cookie("bigCookie", { token },{
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "None", // Adjust as needed based on your security requirements
+    });
     res.status(201).json(new Success("User registered successfully", result));
   } catch (error) {
     console.log(error);
@@ -56,7 +60,10 @@ export const loginUser = async (req, res) => {
 
     const token = jwt.sign({ userId: user?.id }, process.env.JWT_SECRET);
     console.log(process.env.JWT_SECRET);
-    res.cookie("bigCookie", token);
+    res.cookie("bigCookie", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+    });
     res.status(200).json(new Success("Successfully logged in user", user));
   } catch (error) {
     console.log(error);
