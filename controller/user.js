@@ -55,6 +55,7 @@ export const loginUser = async (req, res) => {
     delete user?.password;
 
     const token = jwt.sign({ userId: user?.id }, process.env.JWT_SECRET);
+    console.log(process.env.JWT_SECRET);
     res.cookie("bigCookie", token);
     res.status(200).json(new Success("Successfully logged in user", user));
   } catch (error) {
