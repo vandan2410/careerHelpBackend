@@ -27,8 +27,7 @@ export const registerUser = async (req, res) => {
     const token = jwt.sign({ userId: result.id }, process.env.JWT_SECRET);
     res.cookie("bigCookie",  token ,{
       httpOnly: true,
-      secure: true,
-      sameSite: "None",
+      
       
     });
     res.status(201).json(new Success("User registered successfully", result));
@@ -63,8 +62,7 @@ export const loginUser = async (req, res) => {
     console.log(process.env.JWT_SECRET);
     res.cookie("bigCookie", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "None",
+      
       
     });
     res.status(200).json(new Success("Successfully logged in user", user));
