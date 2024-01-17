@@ -29,8 +29,7 @@ export const registerUser = async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "None",
-      path: "/",
-      expires:new Date(Date.now()+3600000000)
+      
     });
     res.status(201).json(new Success("User registered successfully", result));
   } catch (error) {
@@ -66,8 +65,7 @@ export const loginUser = async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "None",
-      path: "/",
-      expires:new Date(Date.now()+3600000000)
+      
     });
     res.status(200).json(new Success("Successfully logged in user", user));
   } catch (error) {
