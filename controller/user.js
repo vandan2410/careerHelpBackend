@@ -25,10 +25,12 @@ export const registerUser = async (req, res) => {
     });
     delete result?.password;
     const token = jwt.sign({ userId: result.id }, process.env.JWT_SECRET);
-    res.cookie("bigCookie", { token },{
+    res.cookie("bigCookie",  token ,{
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "None", // Adjust as needed based on your security requirements
+      secure: true,
+      sameSite: "None",
+      path: "/",
+      expires:new Date(Date.now()+3600000000)
     });
     res.status(201).json(new Success("User registered successfully", result));
   } catch (error) {
@@ -62,9 +64,10 @@ export const loginUser = async (req, res) => {
     console.log(process.env.JWT_SECRET);
     res.cookie("bigCookie", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       sameSite: "None",
       path: "/",
+      expires:new Date(Date.now()+3600000000)
     });
     res.status(200).json(new Success("Successfully logged in user", user));
   } catch (error) {
