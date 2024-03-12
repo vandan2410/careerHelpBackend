@@ -25,7 +25,7 @@ export const addPost = async (req, res) => {
 
     const anonymousUser = await fetchUserByUserName("Anonymous");
 
-    const authorId = isAnonymous ? anonymousUser.id : req.user.id;
+    const authorId = isAnonymous ? anonymousUser.id : Number(req.params.userId);
 
     const payload = {
       title,
