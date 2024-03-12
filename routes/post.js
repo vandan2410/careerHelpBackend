@@ -20,22 +20,20 @@ import {
 
 const router = express.Router();
 
-router.post("/newPost", authenticateUser, validatePayloadForNewPost, addPost);
-router.get("/userPosts/:userId", authenticateUser, getUserPosts);
+router.post("/newPost/:userId", validatePayloadForNewPost, addPost);
+router.get("/userPosts/:userId",  getUserPosts);
 router.get("/getPosts",getAllPosts);
 router.get('/getPostsbyCompanyId/:companyId',getPostByCompanyId)
 router.get('/postwithcompanyname/:postId',getPostDetailsWithCompanyName);
 router.put(
   "/editPost/:postId",
-  authenticateUser,
-  validateUserPermissions,
+ 
   validatePayloadForEditPost,
   editPost
 );
 router.delete(
   "/removePost/:postId",
-  authenticateUser,
-  validateUserPermissions,
+  
   removePost
 );
 
